@@ -25,14 +25,36 @@
     <div v-for="movie in movies" v-bind:key="movie.id">
       <h2>{{ movie.title }}</h2>
       <p>{{ movie.year }}</p>
-      <button v-on:click="showMore()">Show More</button>
-      <p v-if="moreInfo === true">{{ movie.plot }}</p>
-      <p v-if="moreInfo === true">{{ movie.director }}</p>
+      <router-link :to="`/movies/${movie.id}`"><button class="button">See Details</button></router-link>
+
       <br />
       <br />
     </div>
   </div>
 </template>
+<style scoped>
+.button {
+  background-color: #dde9de; /* Green */
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", "Geneva", "Verdana",
+    "sans-serif";
+  border: none;
+  color: #28942c;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 3px;
+  transition-duration: 0.07s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #4caf50; /* Green */
+  color: white;
+  text-decoration: none;
+}
+</style>
 
 <script>
 // @ is an alias to /src
