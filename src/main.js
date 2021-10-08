@@ -4,6 +4,7 @@ import router from "./router";
 import axios from "axios";
 
 Vue.config.productionTip = false;
+axios.defaults.baseURL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/";
 
 var jwt = localStorage.getItem("jwt");
 if (jwt) {
