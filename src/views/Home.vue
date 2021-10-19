@@ -1,30 +1,11 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <h1>Movies</h1>
+    <img
+      alt="Vue logo"
+      src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bW92aWV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+    />
+    <h1>JW Movies</h1>
 
-    <div>
-      Movie Title:
-      <input type="text" v-model="newMovieParams.title" />
-    </div>
-    <div>
-      Year:
-      <input type="integer" v-model="newMovieParams.year" />
-    </div>
-    <div>
-      Plot:
-      <input type="text" v-model="newMovieParams.plot" />
-      <br />
-      <small>{{ 500 - newMovieParams.plot.length }} characters remaining.</small>
-    </div>
-    <div>
-      Director:
-      <input type="text" v-model="newMovieParams.director" />
-    </div>
-    <p>{{ newMovieParams }}</p>
-    <button v-on:click="createMovie()">Create Movie</button>
-    <br />
-    <br />
     <div>
       Search:
       <input v-model="titleFilter" type="text" list="titles" />
@@ -32,17 +13,16 @@
         <option v-for="movie in movies" v-bind:key="movie.id">{{ movie.title }}</option>
       </datalist>
     </div>
+    <button class="button" v-on:click="setSortOrder('title')">Sort by Title</button>
+
+    <button class="button" v-on:click="setSortOrder('year')">Sort by Year</button>
     <div
       v-for="movie in orderBy(filterBy(movies, titleFilter, 'title'), sortAttribute, sortOrder)"
       v-bind:key="movie.id"
     >
-      <button v-on:click="setSortOrder('title')">Sort by Title</button>
-
-      <button v-on:click="setSortOrder('year')">Sort by Year</button>
       <h2>{{ movie.title }}</h2>
       <p>{{ movie.year }}</p>
       <router-link :to="`/movies/${movie.id}`"><button class="button">See Details</button></router-link>
-
       <br />
       <br />
     </div>
@@ -54,8 +34,9 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", "Geneva", "Verdana",
     "sans-serif";
   border: none;
-  color: #28942c;
-  padding: 15px 32px;
+  color: rgb(5, 83, 18);
+  padding: 15px 15px;
+  margin: 10px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -69,6 +50,21 @@
   background-color: #4caf50; /* Green */
   color: white;
   text-decoration: none;
+}
+
+textarea {
+  height: calc(2.5em + 4.75rem + 2px);
+  font-family: Verdana;
+  font-size: 14;
+  width: 40%;
+}
+
+label {
+  display: inline-block;
+  max-width: 45%;
+  text-align: center;
+  color: rgb(15, 56, 104);
+  padding: 0.2em 0.5em;
 }
 </style>
 
@@ -101,21 +97,6 @@ export default {
         console.log(response.data);
         this.movies = response.data;
       });
-    },
-    showMore: function () {
-      this.moreInfo = !this.moreInfo;
-    },
-    createMovie: function () {
-      axios
-        .post("http://127.0.0.1:3000/movies", this.newMovieParams)
-        .then((response) => {
-          console.log(response.data);
-          this.movies.year = parseInt(this.movies.year);
-          this.movies.push(response.data);
-        })
-        .catch((error) => {
-          console.log(error.response.data.error);
-        });
     },
     setSortOrder: function (attribute) {
       this.sortOrder = this.sortOrder * -1;

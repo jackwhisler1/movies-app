@@ -3,6 +3,8 @@
     <div id="nav">
       <router-link to="/">Home</router-link>
       |
+      <router-link to="/movies/new">Create Movie</router-link>
+      |
       <span v-if="isLoggedIn()">
         <router-link to="/logout">Logout</router-link>
       </span>
