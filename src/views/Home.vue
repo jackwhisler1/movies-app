@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <img
-      alt="Vue logo"
-      src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bW92aWV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-    />
-    <h1>JW Movies</h1>
+    <h1 class="display-4">J.Whis. Films</h1>
+    <br />
+    <span></span>
+
+    <br />
 
     <div>
       Search:
@@ -16,16 +16,34 @@
     <button class="button" v-on:click="setSortOrder('title')">Sort by Title</button>
 
     <button class="button" v-on:click="setSortOrder('year')">Sort by Year</button>
-    <div
-      v-for="movie in orderBy(filterBy(movies, titleFilter, 'title'), sortAttribute, sortOrder)"
-      v-bind:key="movie.id"
-    >
-      <img :src="`https://source.unsplash.com/random/300x200?sig=${movie.id}`" />
-      <h2>{{ movie.title }}</h2>
-      <p>{{ movie.year }}</p>
-      <router-link :to="`/movies/${movie.id}`"><button class="button">See Details</button></router-link>
-      <br />
-      <br />
+    <div class="container">
+      <!-- <div class="card-group"> -->
+      <div class="row row-cols-2 row-cols-md-4 g-4">
+        <div
+          class="col"
+          v-for="movie in orderBy(filterBy(movies, titleFilter, 'title'), sortAttribute, sortOrder)"
+          v-bind:key="movie.id"
+        >
+          <div class="card">
+            <img
+              v-bind:src="`https://source.unsplash.com/random/300x200?sig=${movie.id}`"
+              v-bind:alt="movie.title"
+              class="card-img-top"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ movie.title }}</h5>
+              <p class="card-text">
+                {{ movie.director }}
+              </p>
+              <p>{{ movie.year }}</p>
+              <router-link :to="`/movies/${movie.id}`">
+                <button class="btn btn-success">See Details</button>
+              </router-link>
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -51,6 +69,10 @@
   background-color: #4caf50; /* Green */
   color: white;
   text-decoration: none;
+}
+
+h1 {
+  margin: 1.2em;
 }
 
 textarea {
