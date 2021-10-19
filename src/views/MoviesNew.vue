@@ -46,7 +46,7 @@ export default {
   methods: {
     createMovie: function () {
       axios
-        .post("http://127.0.0.1:3000/movies", this.newMovieParams)
+        .post("/movies", this.newMovieParams)
         .then((response) => {
           console.log(response.data);
           // this.movies.year = parseInt(this.movies.year);

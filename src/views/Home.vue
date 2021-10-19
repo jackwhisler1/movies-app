@@ -20,6 +20,7 @@
       v-for="movie in orderBy(filterBy(movies, titleFilter, 'title'), sortAttribute, sortOrder)"
       v-bind:key="movie.id"
     >
+      <img :src="`https://source.unsplash.com/random/300x200?sig=${movie.id}`" />
       <h2>{{ movie.title }}</h2>
       <p>{{ movie.year }}</p>
       <router-link :to="`/movies/${movie.id}`"><button class="button">See Details</button></router-link>
